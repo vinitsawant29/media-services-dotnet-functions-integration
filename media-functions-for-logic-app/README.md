@@ -2,7 +2,7 @@
 
 ## Video presentation about serverless video workflows
 
-[![Watch the presentation](images/player-serverless.png?raw=true)](https://aka.ms/ampembed?url=https%3A%2F%2Fxpouyatdemo-euwe.streaming.media.azure.net%2F87ccfa30-7fa8-496f-a3f4-ea2bf8dea25e%2Fconnect2017-v3.ism%2Fmanifest)
+[![Watch the presentation](images/player-serverless.png?raw=true)](https://ampdemo.azureedge.net/azuremediaplayer.html?url=https%3a%2f%2fxpouyatdemo-euwe.streaming.media.azure.net%2fc9b6ac82-c187-4882-a3d3-1a67204ac58e%2fconnect2017-v3.ism%2fmanifest)
 
 ## Prerequisites for all Logic Apps deployments
 
@@ -23,6 +23,7 @@ To enable streaming, go to the Azure portal, select the Azure Media Services acc
 ![Screen capture](images/start-se-2.png?raw=true)
 
 ### 4. Deploy the Azure functions
+
 If not already done : fork the repo, deploy Azure Functions and select the **"media-functions-for-logic-app"** Project (IMPORTANT!)
 
 Follow the guidelines in the [git tutorial](1-CONTRIBUTION-GUIDE/git-tutorial.md) for details on how to fork the project and use Git properly with this project.
@@ -32,8 +33,6 @@ Note : if you never provided your GitHub account in the Azure portal before, the
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fmedia-services-dotnet-functions-integration%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-
-
 
 ## First Logic App : A Simple VOD workflow
 
@@ -45,8 +44,6 @@ This template creates a Logic app that listens to an onedrive folder and will co
 ![Screen capture](images/logicapp1-simplevod-2.png?raw=true)
 
 [See the detailed view of the logic app.](logicapp1-simplevod-screen.md)
-
-
 
 ### 1. Deploy the logic app
 
@@ -64,10 +61,10 @@ Please specify the name of the storage account used by Media Services.
 
 When deployed, go to the Logic App Designer and fix the connections (Onedrive, Outlook.com...). Make sure to (re)select the OneDrive folder that you want to use for the ingest.
 
-
 ## Second Logic App : using the Azure Storage trigger
 
 This is the same workflow that the first logic app with two main differences:
+
 - the source is monitored using blob trigger (new file coming to an Azure Storage container)
 - the asset creation / blob copy is done through Azure functions to workaround the limitation of 50 MB. These functions have been tested with 1.8 GB files.
 
@@ -81,15 +78,15 @@ This is the same workflow that the first logic app with two main differences:
 
 This template creates a Logic app which
 
-* monitors a container in Azure Storage (blob trigger),
-* copies new file to an Azure Media Services asset,
-* triggers an encoding job,
-* converts the English audio to text (using Media Indexer v1),
-* translates the English subtitles to French (using Bing translator),
-* copies back the French subtitles to the subtitles asset,
-* publishes the output assets,
-* generates a short playback URL (using bitlink)
-* sends an email with Outlook when the process is complete or if the job failed. In the email, the playback link includes the two subtitles.
+- monitors a container in Azure Storage (blob trigger),
+- copies new file to an Azure Media Services asset,
+- triggers an encoding job,
+- converts the English audio to text (using Media Indexer v1),
+- translates the English subtitles to French (using Bing translator),
+- copies back the French subtitles to the subtitles asset,
+- publishes the output assets,
+- generates a short playback URL (using bitlink)
+- sends an email with Outlook when the process is complete or if the job failed. In the email, the playback link includes the two subtitles.
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fmedia-services-dotnet-functions-integration%2Fmaster%2Fmedia-functions-for-logic-app%2Flogicapp3-advancedvod-deploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -99,18 +96,16 @@ This template creates a Logic app which
 ![Screen capture](images/logicapp3-advancedvod-2.png?raw=true)
 ![Screen capture](images/logicapp3-advancedvod-3.png?raw=true)
 
-
 ## Fourth Logic App : Importing pre-encoded assets to Azure Media Services
 
 This template creates a Logic app which
 
-* monitors a container in Azure Storage (blob trigger) for new JSON semaphore files,
-  * See an [example of semaphore file](encodedasset0.json) below 
-* imports all the video files declared in the semaphore file to a single asset,
-  * Note: it waits for all the video files to arrive in the container. If you upload all the files with AZCOPY or Aspera, the video files arrive after the semaphore file given the size, so the need for the wait.
-* creates a client manifest in the asset,
-* publishes the asset with dynamic packaging for adaptive streaming.
-
+- monitors a container in Azure Storage (blob trigger) for new JSON semaphore files,
+  - See an [example of semaphore file](encodedasset0.json) below
+- imports all the video files declared in the semaphore file to a single asset,
+  - Note: it waits for all the video files to arrive in the container. If you upload all the files with AZCOPY or Aspera, the video files arrive after the semaphore file given the size, so the need for the wait.
+- creates a client manifest in the asset,
+- publishes the asset with dynamic packaging for adaptive streaming.
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fmedia-services-dotnet-functions-integration%2Fmaster%2Fmedia-functions-for-logic-app%2Flogicapp4-preencoded-asset-deploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -119,7 +114,6 @@ This template creates a Logic app which
 ![Screen capture](images/logicapp4-1.png?raw=true)
 ![Screen capture](images/logicapp4-2.png?raw=true)
 ![Screen capture](images/logicapp4-3.png?raw=true)
-
 
 Example of [semaphore file](encodedasset0.json) that must be created and uploaded along with the video files.
 
@@ -143,6 +137,6 @@ This [page](LiveStreamAnalysis.md) presents a near real time video analytics sol
 
 [![Test Player](images/live-media-analytics-player1.png?raw=true)](LiveStreamAnalysis.md)
 
-
 ## Functions documentation
+
 This [page](Functions-documentation.md) lists the functions available and describes the input and output parameters.
