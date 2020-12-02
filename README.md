@@ -11,8 +11,7 @@ azureDeploy: https://raw.githubusercontent.com/Azure-Samples/media-services-dotn
 
 # Integrating Azure Media Services v2 with Azure Functions and Logic Apps
 
-This project contains examples of using Azure Functions with Azure Media Services v2 API.
-For functions and logic apps for Azure Media Services v3 API, please go [here](https://aka.ms/ams3functions).
+This project contains examples of using Azure Functions with Azure Media Services v2 API. The Media Services v2 SDK is **deprecated**. We recommend the use of Azure Media Services v3 API. For functions and logic apps with the v3 API, please go [here](https://aka.ms/ams3functions).
 
 The project includes several folders of sample Azure Functions for use with Azure Media Services v2 that show workflows related
 to ingesting content directly from blob storage, encoding, and writing content back to blob storage. It also includes examples of
