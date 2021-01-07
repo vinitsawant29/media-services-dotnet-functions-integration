@@ -52,9 +52,9 @@ Note : if you never provided your GitHub account in the Azure portal before, the
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-### 4. Create a Cosmos database and collection
+### 4. Create a Cosmos database and container
 
-By default, the template is configured to use a database named "vidb" and a collection named "vicol". So please create such database and collection. Use "/date" as the partition key for the collection.
+By default, the template is configured to use a database id named "vidb" and a container id (collection) named "vicol". So please create such database id and container id. Use "/date" as the partition key for the container id.
 Create a settings 'CosmosDBConnectionString' in the Azure functions app settings and store in it the Cosmos DB Connection string. It is used by the function to retrieve the insights and pass them to the player.
 
 ### 5. Configure live streaming with AMS
@@ -68,6 +68,7 @@ To do so, go to the Azure portal or AMSE, select the Azure Media Services accoun
 
 ![Screen capture](images/start-se-2.png?raw=true)
 
+Note : you cannot create a AMS v2 live channel with the Azure portal anymore (feature is deprecated). Please use the REST API, SDK or AMSE for v2.
 Create a channnel "Channel1" and program "Program1" (with an ArchiveWindow of minimum 20 min) in the Media Services account used by the functions. Start them. Connect a live encoder (for example, [Wirecast](https://www.telestream.net/wirecast/)) and push the live RTMP stream to the channel. If you want to use another name for the channel and program, then you will have to edit the step 1 logic app to reflect the new names.
 
 Important : setup 10 S3 media reserved units in the Media Services account if you process a SD stream. A higher resolution stream may require more S3 units. You can create a new support request in the Azure portal to require more S3 units, as the default limit is 10.
