@@ -157,7 +157,7 @@
             "[concat(resourceId('Microsoft.Web/sites/', variables('functionsAppName')),'/config/appsettings')]"
           ],
           "properties": {
-            "RepoUrl": "[parameters('sourceCodeRepositoryURL')]",
+            "RepoUrl": "[parameters('https://github.com/vinitsawant29/media-services-dotnet-functions-integration.git')]",
             "branch": "[parameters('sourceCodeBranch')]",
             "IsManualIntegration": "false"
           }
